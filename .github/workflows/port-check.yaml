@@ -1,4 +1,4 @@
-name: Argocd deployement
+name: Argocd Deployment
 
 on:
   push:
@@ -6,15 +6,14 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Login to ArgoCD
-      run: argocd login --username "${{ secrets.ARGOCD_USERNAME }}" --password "${{ secrets.ARGOCD_PASSWORD }}" --server http://a643e055e05314dfa8ab628ed545b9f7-783703239.us-east-1.elb.amazonaws.com
+      - name: Login to ArgoCD
+        run: argocd login --username ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --server http://a643e055e05314dfa8ab628ed545b9f7-783703239.us-east-1.elb.amazonaws.com
 
-        # Add your build and test commands here
-        echo "Building and testing..."
+     
