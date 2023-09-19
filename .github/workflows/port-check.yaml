@@ -20,6 +20,6 @@ jobs:
           sudo mv argocd-linux-amd64 /usr/local/bin/argocd
 
       - name: Login to ArgoCD
-        run: argocd login --username ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --server http://a643e055e05314dfa8ab628ed545b9f7-783703239.us-east-1.elb.amazonaws.com
+        run: argocd login --username admin --password 3n9rn8SHGS3csUXt --server http://a643e055e05314dfa8ab628ed545b9f7-783703239.us-east-1.elb.amazonaws.com
 
      
