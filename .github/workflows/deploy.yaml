@@ -23,7 +23,7 @@ jobs:
           git config user.name "usersil"
           git config user.email "silpa.suresh@accenture.com"
           git add generated.yaml
-          git commit -m "Generate YAML file"
+          git commit -m "Generate YAML file for check"
           git remote add origin_with_token https://$GITHUB_ACTOR:${{ secrets.PAT}}@github.com/usersil/port-test-project.git
           git push
 
