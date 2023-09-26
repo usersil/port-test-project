@@ -2,7 +2,18 @@ name: UPSERT workflow
 on:
   workflow_dispatch:
     inputs:
-      
+      api_version:
+        type: string
+      kind:
+        type: string
+      name:
+        type: string
+      bucketname:
+        type: string
+      region:
+        type: string
+      port_payload:
+        required: true
         description: Port's payload, including details for who triggered the action and
           general context (blueprint, run id, etc...)
         type: string
@@ -42,11 +53,15 @@ jobs:
       - name: Generate Crossplane Claim YAML
         run: |
           # Replace this with your script to generate the Crossplane claim YAML content
+          
+          api_version="${{ github.event.inputs.api_version }}"
+          kind="${{ github.event.inputs.kind }}"
+          name="${{ github.event.inputs.name }}"
           bucket_name="${{ github.event.inputs.bucketname }}"
           region="${{ github.event.inputs.region }}"
-          cat <<EOF > "${bucket_name}.yaml"
-          apiVersion: s3.aws.upbound.io/v1beta1
-          kind: Bucket
+          cat <<EOF > "${name}.yaml"
+          apiVersion: ${api_version}
+          kind: ${kind}
           metadata:
             name: ${bucket_name}
           spec:
@@ -62,11 +77,11 @@ jobs:
       - name: Commit and push changes
         run: |
           bucket_name="${{ github.event.inputs.bucketname }}"
-          git config user.name "usersil"
-          git config user.email "silpa.suresh@accenture.com"
+          git config user.name "JagadeeshJ03"
+          git config user.email "jjagadeeshgouda1996@gmail.com"
           git add "${bucket_name}.yaml"
           git commit -m "Generate Crossplane Claim YAML testing file"
-          git remote add origin_with_token https://$GITHUB_ACTOR:${{ secrets.PAT}}@github.com/usersil/port-test-project.git
+          git remote add origin_with_token https://$GITHUB_ACTOR:${{ secrets.YOUR_PAT_SECRET }}@github.com/JagadeeshJ03/ccpport.git
           git push
       - name: Create a log message
         uses: port-labs/port-github-action@v1
