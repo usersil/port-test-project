@@ -81,7 +81,7 @@ jobs:
           git config user.email "jjagadeeshgouda1996@gmail.com"
           git add "${bucket_name}.yaml"
           git commit -m "Generate Crossplane Claim YAML testing file"
-          git remote add origin_with_token https://$GITHUB_ACTOR:${{ secrets.YOUR_PAT_SECRET }}@github.com/JagadeeshJ03/ccpport.git
+          git remote add origin_with_token https://$GITHUB_ACTOR:${{ secrets.PAT }}@github.com/usersil/port-test-projrct.git
           git push
       - name: Create a log message
         uses: port-labs/port-github-action@v1
