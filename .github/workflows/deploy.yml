@@ -8,7 +8,11 @@ on:
         type: string
       name:
         type: string
-      bucketname:
+      bucketName:
+        type: string
+      queueName:
+        type: string
+      securityGroupName:
         type: string
       region:
         type: string
@@ -57,7 +61,7 @@ jobs:
           api_version="${{ github.event.inputs.api_version }}"
           kind="${{ github.event.inputs.kind }}"
           name="${{ github.event.inputs.name }}"
-          bucket_name="${{ github.event.inputs.bucketname }}"
+          bucket_name="${{ github.event.inputs.bucketName }}"
           region="${{ github.event.inputs.region }}"
           cat <<EOF > "${name}.yaml"
           apiVersion: ${api_version}
@@ -76,7 +80,7 @@ jobs:
           EOF
       - name: Commit and push changes
         run: |
-          bucket_name="${{ github.event.inputs.bucketname }}"
+          bucket_name="${{ github.event.inputs.bucketName }}"
           git config user.name "usersil"
           git config user.email "silpa.suresh@accenture.com"
           git add "${name}.yaml"
