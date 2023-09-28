@@ -1,65 +1,17 @@
 name: UPSERT workflow
 on:
-    workflow_dispatch:
-        inputs:
-          api_version:
-            type: string
-          kind:
-            type: string
-          name:
-            type: string
-          bucketName:
-            type: string
-          queueName:
-            type: string
-          securityGroupName:
-            type: string
-          region:
-            type: string
-          port_payload:
-            required: true
-            description: Port's payload, including details for who triggered the action and general context (blueprint, run id, etc...)
-            type: string
+  push:
+    branches:
+     - main
 jobs:
     create-entity-in-port-and-update-run:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
             - name: Set up jq
               run: |
                 sudo apt-get update
                 sudo apt-get install jq -y
-
-            - name: UPSERT Entity
-              uses: port-labs/port-github-action@v1
-              with:
-                identifier: some_identifier
-                title: Some Title
-                team: "[]"
-                icon: DefaultBlueprint
-                blueprint: s3_bucket
-                properties: |-
-                    {
-                    "arn": "string",
-                    "encryption": [],
-                    "lifecycleRules": [],
-                    "link": "https://example.com",
-                    "publicAccess": {
-                        "a": 1,
-                        "b": 2
-                    },
-                    "regionalDomainName": "string",
-                    "tags": [],
-                    "versioningStatus": "Enabled"
-                    }
-                relations: "{}"
-                clientId: ${{ secrets.PORT_CLIENT_ID }}
-                clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
-                operation: UPSERT
-                runId: ${{fromJson(inputs.port_payload).context.runId}}
 
             - name: Print Payload Properties
               run: |
